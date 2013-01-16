@@ -63,6 +63,8 @@ Although you can config all directories, te easiest way is to start in your web-
 git clone git@github.com:klml/gidig.git
 </code>
 
+copy (`cp`) or move (`mv`) `config.exmpl` to `config`.
+
 
 also create your <code>source/</code> directory here, versioning is here very useful, but not mandatory.
 Trigger after every content-update `source2html.xx`
