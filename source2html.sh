@@ -15,7 +15,7 @@ for CHGLEMMA in $1;
     do
         cat $SCRIPTROOT/tpl_header.html > $WEBROOT/tmp  ## need kumul variable TODO
         # __TITLE__ # heading in first line
-        markdown $SOURCEROOT/$CHGLEMMA.$markupextension >> $WEBROOT/tmp
+#        markdown $SOURCEROOT/$CHGLEMMA.$markupextension >> $WEBROOT/tmp
         cat $SCRIPTROOT/tpl_footer.html >> $WEBROOT/tmp
 
         cat $WEBROOT/tmp | sed -e "s|__LEMMA__|$CHGLEMMAS|" > $WEBROOT/$CHGLEMMA$WEBEXTENSION # put name in body etc

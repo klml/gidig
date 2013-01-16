@@ -1,6 +1,6 @@
-WEBROOT=/var/www/dikid.loc
-SCRIPTROOT=/var/www/dikid.loc/gidig
-SOURCEROOT=/var/www/dikid.loc/source
+WEBROOT=../
+SCRIPTROOT=$WEBROOT/gidig
+SOURCEROOT=$WEBROOT/source
 
 WEBSCRIPT=bashput # bashput php python 
 
