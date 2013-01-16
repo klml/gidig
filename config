@@ -1,0 +1,10 @@
+WEBROOT=/var/www/dikid.loc
+SCRIPTROOT=/var/www/dikid.loc/gidig
+SOURCEROOT=/var/www/dikid.loc/source
+
+WEBSCRIPT=bashput # bashput php python 
+
+
+WEBEXTENSION= # eg .html, optional
+markupextension=md
+CHGLEMMAS=$1
