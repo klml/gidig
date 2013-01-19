@@ -42,10 +42,13 @@ if ( isset($lemma) || isset($_GET['lemma']) ) {
     if ( isset($_GET['lemma']) ) $lemma = $_GET['lemma'] ;
 
     $htmlcontent = file_get_contents( $SCRIPTROOT. '/tpl_header.html' ); 
+
+    $alwayscontent = file_get_contents( $SCRIPTROOT. '/tpl_alwaysonsite.md' );  // TODO variabler
+    $htmlcontent .= markdown($alwayscontent);
     # __TITLE__ # heading in first line
 
     $sourcecontent = file_get_contents( $SOURCEROOT . $lemma . $MARKUPEXTENSION , true);
-    $htmlcontent .= markdown($sourcecontent);
+    $htmlcontent .= markdown($sourcecontent); // TODO ? only on generl markdown call for all?
     
     $htmlcontent .= file_get_contents( $SCRIPTROOT. '/tpl_footer.html' , true); 
 
