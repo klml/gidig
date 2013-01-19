@@ -6,17 +6,17 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_startup_errors', '1');
 /* */
 
+// define all varibles from config to "$VARIABLE"-form
 $ini_array = parse_ini_file("config", TRUE);
-$SCRIPTROOT = $ini_array['SCRIPTROOT'] ;  // TODO in array
-$SOURCEROOT = $ini_array['SOURCEROOT'] ;
-$MARKUPEXTENSION = $ini_array['MARKUPEXTENSION'] ;
-$WEBROOT = $ini_array['WEBROOT'] ;
-$WEBEXTENSION =$ini_array['WEBEXTENSION'] ;
+foreach ($ini_array as $ini => $value ) {
+    $$ini = $value  ;
+};
 
-/*
-if ( isset($script) NOT ) die();
-*/
 
+if ( $SCRIPT != php ) {
+    header("Status: 503 Service Unavailable");
+    die();
+}
 
 include_once "lib/markdown.php";
 

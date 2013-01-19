@@ -2,13 +2,14 @@
 ## dont use inline comments
 ## dont variables in variables e.g. 'SCRIPTROOT=$WEBROOT/gidig'
 
+SCRIPT=php
 WEBROOT=../
-SCRIPTROOT=$WEBROOT/gidig
-SOURCEROOT=$WEBROOT/source
+SCRIPTROOT=../gidig/
+SOURCEROOT=../source/
+WEBSCRIPT=bashput
 
-WEBSCRIPT=bashput # bashput php python 
-
-
-WEBEXTENSION= # eg .html, optional
-markupextension=md
+WEBEXTENSION= 
+# eg .html, optional
+MARKUP=markdown
+MARKUPEXTENSION=.md
 CHGLEMMAS=$1
