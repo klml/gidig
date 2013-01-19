@@ -57,7 +57,31 @@ Works with a PUT enabled webserver (I use nginx)
 
 ## install
 
-Although you can config all directories, te easiest way is to start in your web-directory (e.g. /var/www/example.com/
+
+Although you can config all directories, the easiest way is to start in your web-directory, so you have all pages in this directory, or named sub-directories.
+Only gidig and source (boths in configurable) are reserved for source-files and the gidig script.
+
+
+<code>
+/var/www/example.com$ tree
+.
+├── gidig
+│   ├── config
+│   ├── css
+│   ├── gidig.php
+│   ├── .....
+│   └── tpl_header.html
+├── source
+│   ├── Ae.md
+│   ├── ....
+│   └── wdsh.md
+├── index
+├── klml
+└── tmp
+</code>
+
+
+
 
 <code>
 git clone git@github.com:klml/gidig.git
