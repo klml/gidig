@@ -4,11 +4,18 @@
 import web
 import markdown
 
+
+templatespath = 'templates'
+sourcepath = '../source/'
+targetpath = '../'
+sourcemarkup = 'md'
+
+
 urls = (
     '/(.*)', 'page',
 )
 
-render = web.template.render('templates')
+render = web.template.render(templatespath)
 
 # Application
 app = web.application(urls, globals())
@@ -28,7 +35,7 @@ class page:
             url += "index"
 
         # Each URL maps to the corresponding .txt file in pages/
-        page_file = 'source/%s.md' %(url) ## TODO param
+        page_file = sourcepath + '%s.' %(url) + markup ## TODO param
 
         # Try to open the text file, returning a 404 upon failure
         try:
@@ -40,20 +47,16 @@ class page:
         # Read the entire file, converting Markdown content to HTML
         content = f.read()
         content = md.convert(content)
-        content = render.headerfooter(content)
-
         # Render the page.html template using the converted content
+        lemma = '%s' %(url) ## TODO param
+        content = render.headerfooter(lemma, content) ## all from config
+        content = content
 
-
-        lemma_html = '%s.html' %(url) ## TODO param
-
-        f_html = open( lemma_html ,"w")
-        f_html.write( content )
+        f_html = open( targetpath + lemma ,"w")
+        f_html.write( str(content) )
         f_html.close()
 
-        return 'sadsadsadsad'
-
-        #~ return content
+        return content
 
 
 if __name__ == '__main__':

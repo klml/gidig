@@ -1,3 +1,4 @@
+$def with (lemma, content)
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <head>
  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
@@ -6,10 +7,30 @@
  <link rel="stylesheet" type="text/css" href="./gidig/css/screen.css" media="screen" />
  <link rel="stylesheet" type="text/css" href="./gidig/css/print.css" media="print" />
 
-<title>__LEMMA__ - dikid</title>
+<title>$:lemma - dikid script</title>
 </head>
-<body class="__LEMMA__">
+<body class="lema_$:lemma">
     <div id="header">
         <a href="/">dikid</a>
     </div>
     <div id="panel">
+        $:content
+        <button id="edit">edit</button>
+        <div class="depot">
+            <form action="gidig/source2html.php" method="post" accept-charset="ISO-8859-1" class="markdown">
+                <input type="hidden" name="lemma" class="lemma" value="$:lemma" />
+                <textarea name="sourcecontent"></textarea>
+                <!-- input type="text" name="comment" / -->
+                <button>safe</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </div> 
+ <script type="text/javascript" >if(window.mw){
+gidig.page({"lemma":"$:lemma"});
+}
+ </script>
+ <!-- script type="text/javascript" src="//code.jquery.com/jquery.min.js"></script -->
+ <script type="text/javascript" src="./gidig/js/jquery-1.8.0.min.js"></script>
+ <script type="text/javascript" src="./gidig/js/js.js"></script>
+</body>
