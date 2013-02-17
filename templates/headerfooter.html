@@ -1,4 +1,4 @@
-$def with (lemma, content)
+$def with (lemma, alwaysonsite, content)
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <head>
  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
@@ -14,7 +14,12 @@ $def with (lemma, content)
         <a href="/">dikid</a>
     </div>
     <div id="panel">
+        <div id="alwaysonsite">
+        $:alwaysonsite
+        </div>
+        <div id="content">
         $:content
+        </div>
         <button id="edit">edit</button>
         <div class="depot">
             <form action="gidig/source2html.php" method="post" accept-charset="ISO-8859-1" class="markdown">
