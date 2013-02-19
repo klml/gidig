@@ -10,10 +10,11 @@ sourcepath = '../source/'
 targetpath = '../'
 sourcemarkup = '.md'
 alwaysonsite_file = 'templates/alwaysonsite.md'
+hash_separator = '__HASH_SEPARATOR__'
 
 urls = (
     '/parser/(.*)', 'hashparser',
-    '/(.*)/', 'redirect',
+    '^/(.*)/$', 'redirect',
     '/(.*)', 'page',
 )
 
@@ -34,20 +35,41 @@ class redirect:
 class hashparser:
     def GET(self, url):
 
-        file = open('../source/klml.md', "r")
+        sourcefile = open('../source/' + url + '.md', "r")
 
         conte = ""
-        for line in file:
+        for line in sourcefile:
             if re.search('#', line):
                 conte += line
 
-        return url + conte
+        #~ f_html = open( "../lister.md" ,"w")
+        #~ f_html.write( conte )
+        #~ f_html.close()
 
-                #~ f_html = open( "../lister.md" ,"w")
-                #~ f_html.write( line )
-                #~ f_html.close()
+        #~ return conte
 
+# http://www.python-forum.de/viewtopic.php?f=1&t=6802
+        listerfile = open( "../lister.md" ,"r+")
 
+       
+        unlistedfile = []
+        nowlisting = 0
+        for num, line in enumerate(listerfile):
+            if re.search(hash_separator, line):
+                hash_separator_num = num
+                nowlisting = 1
+            elif nowlisting == 1:
+                nowlisting = 1
+            else :
+                unlistedfile.append(line)
+            
+        listerfile.close()
+
+        listerfile = open( "../lister.md" ,"w")
+        listerfile.writelines(unlistedfile)
+        listerfile.close()
+
+        return url + str(hash_separator_num)
 
 class page:
     def GET(self, url):
@@ -85,6 +107,8 @@ class page:
 
         return content
 
+
+# http://webpy.org/cookbook/userauthbasic
 
 if __name__ == '__main__':
     app.run()
