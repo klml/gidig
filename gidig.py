@@ -35,41 +35,41 @@ class redirect:
 class hashparser:
     def GET(self, url):
 
-        sourcefile = open('../source/' + url + '.md', "r")
-
-        conte = ""
+        # find all hashtags in one file (from url)
+        sourcefile = open( sourcepath + url + sourcemarkup , "r")
+        hashtags = []
         for line in sourcefile:
-            if re.search('#', line):
-                conte += line
+            if  re.search('\S+#\S+', line):
+                hashtags +=  re.findall('\S+#\S+', line) 
+        sourcefile.close() 
 
-        #~ f_html = open( "../lister.md" ,"w")
-        #~ f_html.write( conte )
-        #~ f_html.close()
+        # handle every hashtag
+        for hashtag in hashtags:
+            thishash = hashtag.split('#')
+            key = thishash[0]
+            value = thishash[1]
 
-        #~ return conte
+            # read content from target file/key and delete old listing
+            listerfile = open( sourcepath + key + sourcemarkup ,"r") #TODO creat if not exist
+            unlistedfile = []
+            nowlisting = 0
+            for num, line in enumerate(listerfile):
+                if re.search(hash_separator, line):
+                    nowlisting = 1                           ## TODO just end for 
+                elif nowlisting == 1:
+                    nowlisting = 1
+                else :
+                    unlistedfile.append(line)
+            listerfile.close()
+        
+            # write both to list
+            listerfile = open( sourcepath + key + sourcemarkup ,"w")
+            unlistedfile.append(hash_separator + '\n')
+            unlistedfile.append( value + ': ' + url )
+            listerfile.writelines(unlistedfile)
+            listerfile.close()
 
-# http://www.python-forum.de/viewtopic.php?f=1&t=6802
-        listerfile = open( "../lister.md" ,"r+")
-
-       
-        unlistedfile = []
-        nowlisting = 0
-        for num, line in enumerate(listerfile):
-            if re.search(hash_separator, line):
-                hash_separator_num = num
-                nowlisting = 1
-            elif nowlisting == 1:
-                nowlisting = 1
-            else :
-                unlistedfile.append(line)
-            
-        listerfile.close()
-
-        listerfile = open( "../lister.md" ,"w")
-        listerfile.writelines(unlistedfile)
-        listerfile.close()
-
-        return url + str(hash_separator_num)
+        return url 
 
 class page:
     def GET(self, url):
