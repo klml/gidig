@@ -49,8 +49,8 @@ class hashparser:
             key = thishash[0]
             value = thishash[1]
 
-            # read content from target file/key and delete old listing
-            listerfile = open( sourcepath + key + sourcemarkup ,"r") #TODO creat if not exist
+            # read prosa-content from target file/key and delete old listing
+            listerfile = open( sourcepath + key + sourcemarkup ,"a+")
             unlistedfile = []
             nowlisting = 0
             for num, line in enumerate(listerfile):
@@ -62,14 +62,14 @@ class hashparser:
                     unlistedfile.append(line)
             listerfile.close()
         
-            # write both to list
+            # write prosa-content and new list
             listerfile = open( sourcepath + key + sourcemarkup ,"w")
             unlistedfile.append(hash_separator + '\n')
             unlistedfile.append( value + ': ' + url )
             listerfile.writelines(unlistedfile)
             listerfile.close()
 
-        return url 
+        return url + ' parsed'
 
 class page:
     def GET(self, url):
