@@ -4,6 +4,8 @@
 import web
 import markdown
 import re
+import os
+
 
 templatespath = 'templates'
 sourcepath = '../source/'
@@ -35,12 +37,42 @@ class redirect:
 class hashparser:
     def GET(self, url):
 
+        os.chdir(sourcepath)
+        for files in os.listdir("."):
+            if files.endswith(sourcemarkup):
+                # delete old listing
+                sourcefile = open( files ,"r") ### read and Write no append TODO
+                unlistedfile = []
+                nowlisting = 0
+                for num, line in enumerate(sourcefile):
+                    if re.search(hash_separator, line):
+                        nowlisting = 1                           ## TODO just end for 
+                    elif nowlisting == 1:
+                        nowlisting = 1
+                    else :
+                        unlistedfile.append(line)
+
+                hashtags = []
+                for line in sourcefile:
+                    if  re.search('\S+#\S+', line):
+                        hashtags +=  re.findall('\S+#\S+', line) 
+
+                sourcefile.close()
+
+                # write prosa-content
+                sourcefile = open( files ,"w")
+                unlistedfile.append(hash_separator + '\n')
+                sourcefile.writelines(unlistedfile)
+                sourcefile.close()
+
+
+        return 'all parsed' + str(hashtags) + files
+
+
+
         # find all hashtags in one file (from url)
         sourcefile = open( sourcepath + url + sourcemarkup , "r")
-        hashtags = []
-        for line in sourcefile:
-            if  re.search('\S+#\S+', line):
-                hashtags +=  re.findall('\S+#\S+', line) 
+
         sourcefile.close() 
 
         # handle every hashtag
@@ -61,7 +93,7 @@ class hashparser:
                 else :
                     unlistedfile.append(line)
             listerfile.close()
-        
+
             # write prosa-content and new list
             listerfile = open( sourcepath + key + sourcemarkup ,"w")
             unlistedfile.append(hash_separator + '\n')
@@ -69,7 +101,7 @@ class hashparser:
             listerfile.writelines(unlistedfile)
             listerfile.close()
 
-        return url + ' parsed'
+
 
 class page:
     def GET(self, url):
