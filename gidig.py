@@ -37,12 +37,15 @@ class redirect:
 class hashparser:
     def GET(self, url):
 
+        hashtags = []
+
         os.chdir(sourcepath)
         for files in os.listdir("."):
             if files.endswith(sourcemarkup):
                 # delete old listing
                 sourcefile = open( files ,"r") ### read and Write no append TODO
                 unlistedfile = []
+
                 nowlisting = 0
                 for num, line in enumerate(sourcefile):
                     if re.search(hash_separator, line):
@@ -52,10 +55,9 @@ class hashparser:
                     else :
                         unlistedfile.append(line)
 
-                hashtags = []
-                for line in sourcefile:
-                    if  re.search('\S+#\S+', line):
-                        hashtags +=  re.findall('\S+#\S+', line) 
+                    if re.search('\S+#\S+', line) :
+                        hashtag =  re.findall('\S+#\S+', line) 
+                        hashtags.append(hashtag)
 
                 sourcefile.close()
 
@@ -66,8 +68,7 @@ class hashparser:
                 sourcefile.close()
 
 
-        return 'all parsed' + str(hashtags) + files
-
+        return 'all parsed ' + str(hashtags) + files
 
 
         # find all hashtags in one file (from url)

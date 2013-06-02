@@ -2,37 +2,51 @@
 
 cvs-lightweight-markup content framework
 
-* edit git versioned markdown directory ('/md/')
+* edit DVCS versioned markdown directory ('/md/')
 ** on filesystem
 ** just HTTP-PUT markdown from a textarea
-* inotify triggers [autocommit.sh](script/autocommit.sh) for webedited changes or commit manual
-* [post-commit](.git/hooks/post-commit) all new and changed to [markdown.sh](script/markdown.sh) and little bit templating to html
-
-Works with a PUT enabled webserver (I use nginx)
-
+* index diff from changeset on [outermarkdown](http://umija.org/dev%3Aoutermarkdown) (easy hashtags like 'prio#1') to files
+* render alle fiels with tenmplates in md
+* [CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete) source and html to DCVS- and webservers.
 
 <pre>
-                               ┌──────────┐
-                               │ web      │
-      ┌─ http POST/writer.xx ─ │ server   │ ─┐
-      │                        │          │  │
-      │                        └──────────┘  │
-      │                            │         │
-      │                            │   GET   │
-      │                            │         │
-   ┌─────┐                     ┌─────────┐┌─────┐
-   │     ├┐                    │         ││     │
-   │ git │├┐   ┌─ markdown ────│ html    ││ html│
-   │     │││ ──┤               │         ││     │
-   │     │││   └─ templater ───│         ││     │
-   └┬────┘││                   │-------- │└─────┘
-    └┬────┘│ ─── indexer ──────│ * list  │
-     └─────┘                   │ * lists │
-                               │ * lis   │
-                               │ * li    │
-                               │         │
-                               └─────────┘
-
+ ┌─server (optional)─┐                ┌─ (web) server ────────┐
+ │ ┌────────┐──────┐ │                │  ┌─────────┐┌─────┐   │
+ │ │ git    ├┐     │ │                │  │         ││     │   │
+ │ │        │├┐    │ │                │  │ html    ││ html│   │
+ │ │--------│├┼─┐  │ │                │  │         ││     │   │
+ │ │ * list │││ │  │ │                │  │         ││     │   │
+ │ │ * lists│││ │  │ │                │  │-------- │└─────┘   │
+ │ │ * lis  │││ │  │ │                │  │ * list  │          │
+ │ └┬───────┘││ │  │ │                │  │ * list  │          │
+ │  └┬───────┘│ │  │ │                │  │ * list  │          │
+ │   └───┬────┘ │  │ │                │  └─────────┘          │
+ │       │      │  │ │                │                       │
+ │       │      │  │ │                │                       │
+ └───────┼──────┼──┼─┘                └───────────────────────┘
+         │      │  │                                   │       
+         ↑      ↓  ↑                                   ↑       
+         │      │  │                                   │       
+         │      │  │     ┌─ CRUD ───────────────────┐  │       
+         │      │  └─────│─ PUT/writer.php/py/js ───│──┘       
+         │      │        └─────────────────────┬────┘          
+         │      │                              └──────┐        
+ ┌───────┼──────┼─── processing ──────────────────────┼───────┐
+ │       │      │                                     │       │
+ │       │      ├─── 1.) editing (webeditor) ─────────┤       │
+ │       │      │                                     │       │
+ │       │      ├──────────────────────────────────┐  │       │
+ │       │      │   ┌─2.)──────────────────────┐   │  │       │
+ │       └───────── │─────── indexer ──────────│───┘  │       │
+ │                  │ diff                     │      │       │
+ │              │   └──────────────────────────┘      │       │
+ │              │                                     │       │
+ │              │   ┌──3.)─────────────────────┐      │       │
+ │              │   │      ┌─ markdown ────────│──────┤       │
+ │              └───│──────┤                   │      │       │
+ │                  │      └─ templater ───────│ ─────┘       │
+ │                  └──────────────────────────┘              │
+ └────────────────────────────────────────────────────────────┘
 </pre>
 
 
