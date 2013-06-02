@@ -12,7 +12,6 @@ foreach ($ini_array as $ini => $value ) {
     $$ini = $value  ;
 };
 
-
 if ( $SCRIPT != php ) {
     header("Status: 503 Service Unavailable");
     die();
@@ -25,17 +24,22 @@ if ( isset($_POST['lemma']) && isset($_POST['sourcecontent']) ) {
 
     $lemma = $_POST['lemma'] ;
     $sourcecontent = $_POST['sourcecontent'] ;
+    
+    $sourcefilename = $SOURCEROOT . $lemma . $MARKUPEXTENSION ; //  "html/" . $_GET['id'] . ".md" ;
 
-    $writefilehandle = fopen( $SOURCEROOT . $lemma . $MARKUPEXTENSION ,"w");
+    $writefilehandle = fopen( $sourcefilename ,"w");
     $written = fwrite($writefilehandle, $sourcecontent);
+    fclose($writefilehandle);
     // TODO post: commit
     if ( $written != false ) {
         echo $lemma .' with ' . $written . ' bytes was written' ;
     } else {
         header("Status: 503 Service Unavailable");
-        echo "not written";
+        echo $lemma . "not written";
+        die();
     }
 }
+
 
 
 if ( isset($lemma) || isset($_GET['lemma']) ) {
