@@ -1,6 +1,6 @@
 # gidig
 
-cvs-lightweight-markup content framework
+git-markdown content framework
 
 * edit DVCS versioned markdown directory ('/md/')
 ** on filesystem
