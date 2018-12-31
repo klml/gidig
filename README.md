@@ -3,10 +3,10 @@
 git-markdown content framework
 
 * edit DVCS versioned markdown directory ('/md/')
-** on filesystem
-** just HTTP-PUT markdown from a textarea
+  * on filesystem
+  * just HTTP-PUT markdown from a textarea
 * index diff from changeset on [outermarkdown](http://umija.org/dev%3Aoutermarkdown) (easy hashtags like 'prio#1') to files
-* render alle fiels with tenmplates in md
+* render alle fields with tenmplates in md
 * [CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete) source and html to DCVS- and webservers.
 
 <pre>
